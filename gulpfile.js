@@ -17,7 +17,7 @@ var concat = require('gulp-concat'),
 var browserSync = require('browser-sync').create();
 
 var input  = {
-  'javascript': 'goatstone/notes/*',
+  'javascript': 'goatstone/notes/note.js',
   'html': 'goatstone/notes/index.html',
   'test': 'test/**/*.{html,js}'
 };

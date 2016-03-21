@@ -1,4 +1,4 @@
-/* Closure.js*/
+/* Closure.js  */
 var str = "abcdefg";
 var newstr = "";
 for (var i = str.length - 1; i >= 0; i--) {

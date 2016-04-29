@@ -24,3 +24,19 @@ function pal(s, l) {    // string, full length
         pal(s, l);
     }
 }
+'use strict'
+const arr  = [8,6,5,3,1]
+const out = []
+for(let i = 0; i < arr.length; i++){
+    var minI = i
+    for( let j= i + 1; j< arr.length; j++){
+        if( arr[ j ] < arr[ minI ] ){
+            minI = j
+        }
+    }
+    const t = arr[ i ]
+    arr[ i ] = arr[ minI ]
+    arr [ minI ] = t
+}
+
+console.log('z', arr )

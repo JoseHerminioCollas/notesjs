@@ -1,16 +1,13 @@
-'use strict'
-const Rx = require('rx')
 
-const cities = ['new-york', 'paris', 'rome', 'london']
-const delay = 100
-const period = 1000
-const cityStream = Rx.Observable.timer( delay, period )
-    .map( i => cities[ i ] )
-    .take( cities.length )
+// linked list
 
-    cityStream
-    .subscribe(
-    (x) => {
-        console.log('Next: ' + x)
-    },
-    err => { throw err }, () => console.log('Completed') )
+var a = {a:1}
+var b = [ a ]
+
+//b[0].a = 3
+b[0]  = 3
+
+var minValue = Math.max.apply(Math, [1,2,3,4]);
+
+console.log('a', minValue)
+

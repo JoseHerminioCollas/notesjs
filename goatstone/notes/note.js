@@ -1,13 +1,22 @@
+function A() {
+    this.b = 1
+}
+function B() {
+    A.call(this)
+}
+c = Object.create(A.prototype,
+    {
+        c:
+        {
+            value: 100,
+            enumerable: true,
+            configurable: true,
+            writable:true
+        }
+})
 
-// linked list
 
-var a = {a:1}
-var b = [ a ]
-
-//b[0].a = 3
-b[0]  = 3
-
-var minValue = Math.max.apply(Math, [1,2,3,4]);
-
-console.log('a', minValue)
-
+console.log(c.b )
+console.log(c.c )
+console.log(c instanceof A)
+console.log(c instanceof B)

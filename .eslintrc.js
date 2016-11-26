@@ -1,5 +1,9 @@
 module.exports = {
     "extends": "standard",
+    "globals": {
+        "it": false,
+        "describe": false
+    },
     "plugins": [
         "standard",
         "promise",

@@ -2,6 +2,6 @@
   "esversion": 6,
   "asi": true,
   "unused": true,
-  "predef": ["require", "console", "module"]
-
+  "predef": ["require", "console", "module", "document"],
+  "unused": "vars"
 }

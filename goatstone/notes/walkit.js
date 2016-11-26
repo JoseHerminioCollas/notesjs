@@ -1,6 +1,6 @@
-function Node(d) {
-    this.l
-    this.r
+function Node (d) {
+    this.l = null
+    this.r = null
     this.d = d
 }
 var a = new Node('8')
@@ -19,18 +19,16 @@ a.l.r.r.l = new Node('2')
 
 var stck = []
 walkIt(a)
-function walkIt(el) {
+function walkIt (el) {
     stck.push(el)
     while (stck.length > 0) {
         let curr = stck.pop()
         console.log('curr', curr.d)
         if (curr.r) {
             stck.push(curr.r)
-
         }
         if (curr.l) {
             stck.push(curr.l)
         }
     }
-
 }

@@ -23,3 +23,5 @@ function makeD3Data(node){
 	}
 	return d3GraphData;
 }
+
+makeD3Data()

@@ -12,7 +12,7 @@ gulp.task('default', ['babel', 'wp'], function () {
 gulp.watch(editFiles, ['lint', 'babel', 'wp'])
 
 gulp.task('babel', function () {
-    return gulp.src('goatstone/notes/note.js')
+    return gulp.src('./goatstone/note.js')
         .pipe(babel())
         .pipe(gulp.dest('dist'))
 })

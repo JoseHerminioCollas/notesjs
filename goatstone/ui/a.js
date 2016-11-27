@@ -1,7 +1,10 @@
 const React = require('react')
 
-export const A = props => (
-  <div>
-  aaaxxxx
-  </div>
-)
+function A (props) {
+    return (
+      <div>
+         A functional
+      </div>
+    )
+}
+module.exports = A

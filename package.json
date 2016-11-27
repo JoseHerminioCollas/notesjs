@@ -9,6 +9,10 @@
   "author": "Jose Collas",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "browser-sync": "^2.18.2",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.11.0",
@@ -17,6 +21,7 @@
     "eslint-plugin-react": "^6.7.1",
     "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-eslint": "^3.0.1",
     "gulp-jshint": "^2.0.4",
     "gulp-mocha": "^3.0.1",
@@ -27,9 +32,16 @@
     "sinon": "^1.17.6"
   },
   "dependencies": {
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
     "bluebird": "^3.4.6",
     "express": "^4.14.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
     "socket.io": "^1.5.1",
-    "sqlite3": "^3.1.8"
+    "sqlite3": "^3.1.8",
+    "webpack": "^1.13.3",
+    "webpack-stream": "^3.2.0"
   }
 }

@@ -11,7 +11,7 @@ var subject = new Rx.Subject()
 subject.subscribe(function (data) {
     console.log('data: ' + data)
 })
-subject.onNext('X')
+subject.onNext('react-rx')
 
 var source = Rx.Observable.timer(200, 3000)
     .timeInterval()

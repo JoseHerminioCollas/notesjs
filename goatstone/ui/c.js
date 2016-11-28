@@ -4,7 +4,8 @@ class C extends React.Component {
     render () {
         return (
             <div>
-            C extends React.Component
+            C :
+            {this.props.a}
             </div>
         )
     }

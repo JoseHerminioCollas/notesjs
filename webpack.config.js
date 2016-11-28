@@ -3,9 +3,10 @@ var path = require('path');
 
 var BUILD_DIR = path.resolve(__dirname, 'dist/');
 var APP_DIR = path.resolve(__dirname, 'goatstone/');
+var mainFileNames = ['/note.js', '/react-rx.js', '/react-component-creation.js']
 
 var config = {
-  entry: APP_DIR + '/note.js',
+  entry: APP_DIR + mainFileNames[2],
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'

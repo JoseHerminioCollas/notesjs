@@ -2,7 +2,7 @@ const React = require('react')
 
 const D = props => (
       <div>
-          D !!!!!!! !!!!!!!!! {props.a}
+          D {props.a}
          <button onClick={props.func}>b</button>
       </div>
 )

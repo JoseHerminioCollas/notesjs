@@ -5,7 +5,7 @@ var fileRoot = ''
 var hostName = ''
 var baseName = '/home/goat/projects/notesjs/'
 app.get('/', function (req, res) {
-    res.sendFile(fileRoot + baseName + 'goatstone/server/index.html')
+    res.sendFile(fileRoot + baseName + 'goatstone/server/array-sort.html')
 })
 app.use(express.static('node_modules'))
 app.use('/dist/', express.static(baseName + 'dist'))

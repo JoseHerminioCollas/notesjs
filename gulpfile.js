@@ -1,21 +1,19 @@
 var gulp = require('gulp')
-var babel = require('gulp-babel')
 var webpack = require('webpack-stream')
 const eslint = require('gulp-eslint')
 var mocha = require('gulp-mocha')
 
-var editFiles = ['goatstone/**/*.js', 'goatstone/**/*.jsx', 'gulpfile.js', 'test/*.js']
-
-gulp.task('default', ['babel', 'wp'], function () {
+var editFiles = [
+    'goatstone/**/*.js',
+    'goatstone/**/*.jsx',
+    'gulpfile.js',
+    'test/*.js',
+    'webpack.config.js'
+]
+gulp.task('default', ['wp'], function () {
     console.log('default')
 })
-gulp.watch(editFiles, ['lint', 'babel', 'wp'])
-
-gulp.task('babel', function () {
-    return gulp.src('./goatstone/note.js')
-        .pipe(babel())
-        .pipe(gulp.dest('dist'))
-})
+gulp.watch(editFiles, ['lint', 'wp'])
 
 gulp.task('wp', function () {
     return gulp.src('dist/note.js')

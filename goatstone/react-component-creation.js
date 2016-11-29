@@ -1,9 +1,9 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
-var A = require('goatstone/ui/a.js')
-var B = require('goatstone/ui/b.js')
-var C = require('goatstone/ui/c.js')
-var D = require('goatstone/ui/d.js')
+const A = require('goatstone/ui/a.js')
+const B = require('goatstone/ui/b.js')
+const C = require('goatstone/ui/c.js')
+const D = require('goatstone/ui/d.js')
 
 ReactDOM.render(
     <A />,

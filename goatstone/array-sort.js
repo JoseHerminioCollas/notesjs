@@ -20,7 +20,11 @@ Rx.Observable.timer(200, 1000)
     .subscribe((x) => {
         if (!x.done) {
             ReactDOM.render(
-                <ArraySort a={x.value[1]} />,
+                <ArraySort
+                a={x.value[0]}
+                i={x.value[1]}
+                minI={x.value[2]}
+                />,
                 document.getElementById('c')
             )
         }

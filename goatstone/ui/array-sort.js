@@ -1,52 +1,16 @@
 const React = require('react')
-const style = {
-    container: {
-        display: 'flex',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        fontSize: '16px',
-        fontFamily: 'sans-serif',
-        flexFlow: 'row wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'flex-start',
-        height: '100%',
-        width: '100%',
-        backgroundColor: 'hsla(200, 50%, 50%, 1.0)'
-    },
-    element: {
-        flex: '1 0',
-        backgroundColor: 'hsla(50, 10%, 80%, 1.0)',
-        padding: '6px',
-        margin: '1px',
-        minWidth: '50px'
-    },
-    e: {
-        flex: '1 0',
-        backgroundColor: 'red',
-        padding: '6px',
-        margin: '1px',
-        minWidth: '50px'
-    },
-    e2: {
-        flex: '1 0',
-        backgroundColor: 'hsla(50, 100%, 70%, 1.0)',
-        padding: '6px',
-        margin: '1px',
-        minWidth: '50px'
-    }
-}
+const style = require('goatstone/ui/style/container-element.js')
+
 const ArraySort = props => {
     const moves = props.a.map((e, i) => {
-        var eS = style.element
+        var elementStyle = style.element
         if (props.i === i) {
-            eS = style.e
+            elementStyle = style.elementHighlight
         } else if (props.minI === i) {
-            eS = style.e2
+            elementStyle = style.elementHighlight2
         }
         return (
-        <div style={eS} key={i}>
+        <div style={elementStyle} key={i}>
           {e}
         </div>
         )
@@ -57,8 +21,10 @@ const ArraySort = props => {
       </div>
     )
 }
-// D.propTypes = {
-//     a: React.PropTypes.string.isRequired
-// }
+ArraySort.propTypes = {
+    a: React.PropTypes.array.isRequired,
+    i: React.PropTypes.number.isRequired,
+    minI: React.PropTypes.number.isRequired
+}
 
 module.exports = ArraySort

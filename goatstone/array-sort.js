@@ -6,16 +6,18 @@ const ArraySort = require('goatstone/ui/array-sort.js')
 const Control = require('goatstone/ui/control.js')
 const SelectionSort = require('goatstone/sort/selection.js')
 
-const selectionSort = SelectionSort()
-
-const subject = new Rx.Subject()
-subject.subscribe(function (data) {
+const MakeData = require('goatstone/tool/makeData.js')
+const makeData = new MakeData()
+const selectionSort = SelectionSort(makeData.getArray(200))
+const controlStream = new Rx.Subject()
+.subscribe(function (data) {
     console.log('data ::: ' + data)
 })
-
-Rx.Observable.timer(200, 1000)
+Rx.Observable.timer(0, 1000)
     .timeInterval()
-    .map((x) => { return selectionSort.next() })
+    .map((x) => {
+        return selectionSort.next()
+    })
     .take(3000)
     .subscribe((x) => {
         if (!x.done) {
@@ -35,12 +37,10 @@ Rx.Observable.timer(200, 1000)
     () => {
         console.log('Completed')
     })
-
 ReactDOM.render(
     <Control
         func={x => {
-            console.log('click', x)
-            subject.onNext('foo')
+            controlStream.onNext('foo')
         }}
         a={':'}
     />,

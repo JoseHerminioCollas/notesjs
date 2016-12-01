@@ -10,7 +10,7 @@ const style = {
         left: 0,
         fontSize: '16px',
         fontFamily: 'sans-serif',
-        height: '100%',
+        height: '90%',
         width: '100%',
         backgroundColor: 'hsla(200, 50%, 50%, 1.0)'
     },

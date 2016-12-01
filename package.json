@@ -29,6 +29,7 @@
     "jshint": "^2.9.4",
     "mocha": "^2.4.5",
     "rx": "^4.1.0",
+    "rx-react": "^0.3.0",
     "sinon": "^1.17.6"
   },
   "dependencies": {

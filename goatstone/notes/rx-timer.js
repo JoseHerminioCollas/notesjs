@@ -51,14 +51,18 @@ stuff.subscribe(
         console.log('Completed')
     }
 )
-
 function doStuffForItem (item, value, v2) {
-    return Rx.Observable().map().flatMap().filter(function (enhancedItem) {
+    return Rx.Observable()
+    .map()
+    .flatMap()
+    .filter(function (enhancedItem) {
         return enhancedItem.v3 > value
     })
 }
 
-Rx.Observable().get().flatMap(function (x) {
+Rx.Observable()
+.get()
+.flatMap(function (x) {
     return doStuffForItem(x.item, x.v1, x.v2)
 })
 

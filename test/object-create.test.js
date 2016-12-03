@@ -1,6 +1,6 @@
 var expect = require('chai').expect
-var A = require('../goatstone/notes/note.js').A
-var B = require('../goatstone/notes/note.js').B
+var A = require('../goatstone/notes/object-create.js').A
+var B = require('../goatstone/notes/object-create.js').B
 describe('B inherits from A', function () {
     it('The Instance of B', function () {
         var b = new B()

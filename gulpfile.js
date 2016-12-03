@@ -2,6 +2,7 @@ var gulp = require('gulp')
 var webpack = require('webpack-stream')
 const eslint = require('gulp-eslint')
 var mocha = require('gulp-mocha')
+var exec = require('child_process').exec
 
 var editFiles = [
     'goatstone/**/*.js',
@@ -10,15 +11,36 @@ var editFiles = [
     'test/*.js',
     'webpack.config.js'
 ]
-gulp.task('default', ['wp'], function () {
+gulp.task('default', ['wp', 'start-server', 'browser-sync'], function () {
     console.log('default')
 })
 gulp.watch(editFiles, ['lint', 'wp'])
-
+gulp.task('start-server', function () {
+    var cmd = 'node /home/goat/projects/notesjs/goatstone/server/one.js'
+    exec(cmd,
+    (error, stdout, stderr) => {
+        console.log(`stdout: ${stdout}`)
+        console.log(`stderr: ${stderr}`)
+        if (error !== null) {
+            console.log(`exec error: ${error}`)
+        }
+    })
+})
 gulp.task('wp', function () {
     return gulp.src('dist/note.js')
         .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('dist/wp/'))
+})
+gulp.task('browser-sync', function () {
+    const cmd = '/home/goat/projects/notesjs/node_modules/browser-sync/bin/browser-sync.js start -f /home/goat/projects/notesjs/dist/'
+    exec(cmd,
+        (error, stdout, stderr) => {
+            console.log(`stdout: ${stdout}`)
+            console.log(`stderr: ${stderr}`)
+            if (error !== null) {
+                console.log(`exec error: ${error}`)
+            }
+        })
 })
 
 gulp.task('lint', function () {

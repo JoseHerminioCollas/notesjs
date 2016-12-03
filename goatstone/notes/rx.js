@@ -7,7 +7,6 @@ const Message = require('goatstone/ui/message')
 const Control = require('goatstone/ui/control')
 const tasks = require('goatstone/remote/task/tasks')
 var FuncSubject = require('rx-react').FuncSubject
-require('babel-polyfill')
 
 var message
 

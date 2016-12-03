@@ -11,10 +11,10 @@ var editFiles = [
     'test/*.js',
     'webpack.config.js'
 ]
-gulp.task('default', ['wp', 'start-server', 'browser-sync'], function () {
+gulp.task('default', ['lint', 'wp', 'start-server', 'browser-sync'], function () {
     console.log('default')
 })
-gulp.watch(editFiles, ['lint', 'wp'])
+gulp.watch(editFiles, ['lint', 'test', 'wp'])
 gulp.task('start-server', function () {
     var cmd = 'node /home/goat/projects/notesjs/goatstone/server/one.js'
     exec(cmd,
@@ -59,7 +59,12 @@ gulp.task('lint', function () {
     // .pipe(jshint.reporter('default'))
 })
 gulp.task('test', function () {
+    const testFiles = [
+        'test/*.js',
+        'test/note.test.js',
+        'test/sort.selection.test.js'
+    ]
     return gulp
-        .src('test/*.js')
+        .src(testFiles[2])
         .pipe(mocha())
 })

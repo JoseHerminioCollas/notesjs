@@ -18,3 +18,5 @@ http://michalzalecki.com/use-rxjs-with-react/
 Hot vs Cold Observables
 
 https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339#.br0xeeh5a
+
+http://jrsinclair.com/articles/2016/one-weird-trick-that-will-change-the-way-you-code-forever-javascript-tdd/

@@ -8,7 +8,7 @@ const Control = require('goatstone/ui/control.js')
 const SelectionSort = require('goatstone/sort/selection.js')
 const log = require('goatstone/log/log.js')
 
-const arraySize = 300
+const arraySize = 3
 const makeData = new (require('goatstone/tool/makeData.js'))()
 let selectionSort = SelectionSort(makeData.getArray(arraySize))
 const eventEmitter = new (require('events').EventEmitter)()

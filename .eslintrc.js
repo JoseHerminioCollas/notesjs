@@ -3,7 +3,8 @@ module.exports = {
     "globals": {
         "it": false,
         "describe": false,
-        "beforeEach": false
+        "beforeEach": false,
+        "afterEach": false
     },
     "plugins": [
         "standard",

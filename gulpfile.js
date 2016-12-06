@@ -14,7 +14,7 @@ var editFiles = [
 gulp.task('default', ['lint', 'wp', 'start-server', 'browser-sync'], function () {
     console.log('default')
 })
-gulp.watch(editFiles, ['lint', 'test', 'wp'])
+gulp.watch(editFiles, ['lint', 'wp'])
 gulp.task('start-server', function () {
     var cmd = 'node /home/goat/projects/notesjs/goatstone/server/one.js'
     exec(cmd,

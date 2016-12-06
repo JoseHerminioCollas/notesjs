@@ -1,16 +1,17 @@
 var path = require('path')
 
 var BUILD_DIR = path.resolve(__dirname, 'dist/')
-var APP_DIR = path.resolve(__dirname, 'goatstone/')
+var APP_DIR = path.resolve(__dirname, 'goatstone')
 var mainFileNames = [
     '/array-sort.js',
     '/note.js',
     '/react-rx.js',
-    '/react-component-creation.js'
+    '/react-component-creation.js',
+    '/react-style.js'
 ]
 
 var config = {
-    entry: APP_DIR + mainFileNames[0],
+    entry: APP_DIR + mainFileNames[4],
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js'

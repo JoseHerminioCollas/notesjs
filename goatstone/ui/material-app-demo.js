@@ -14,9 +14,11 @@ const App = (props) => (
         targetOrigin={{horizontal: 'left', vertical: 'top'}}>
         <MenuItem primaryText="Refresh"
           onTouchTap={
-            x => props.eventEmitter.emit('message',
-            {e: x, action: 'show', target: 'message', message: 'hello'}
-          )}
+            x => {
+                props.eventEmitter.emit('message',
+                {action: 'show', target: 'message', message: 'ZZZZZZZZ'})
+            }
+        }
         />
         <MenuItem primaryText="Send feedback" />
         <MenuItem primaryText="Settings" />
@@ -25,9 +27,10 @@ const App = (props) => (
     </IconMenu>
     <RaisedButton
       onTouchTap={
-        x => {
+        e => {
+            e.preventDefault() // This prevents ghost click.
             props.eventEmitter.emit('popover',
-            {e: x, show: true, target: 'popover'})
+            {show: true, target: 'popover'})
         }
     }
       label="Click me"

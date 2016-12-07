@@ -14,16 +14,19 @@ const pStyle = {
         lineHeight: '24px'
     }
 }
-function renderMessage (DOMElement, msg) {
-    ReactDOM.render(
-        <MuiThemeProvider>
-            <Paper style={pStyle.paper}
-                   zDepth={4}
-                   circle={false}>
-                {msg} : {new Date().getSeconds()}
-            </Paper>
-        </MuiThemeProvider>,
-        document.querySelector(DOMElement)
-    )
+function renderMessage (DOMElement) {
+    var de = DOMElement
+    return function (msg) {
+        ReactDOM.render(
+            <MuiThemeProvider>
+                <Paper style={pStyle.paper}
+                       zDepth={4}
+                       circle={false}>
+                    aaaa{msg} : {new Date().getSeconds()}
+                </Paper>
+            </MuiThemeProvider>,
+            document.querySelector(de)
+        )
+    }
 }
 export default renderMessage

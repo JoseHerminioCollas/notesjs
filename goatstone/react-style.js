@@ -3,38 +3,46 @@ import ReactDOM from 'react-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
-import renderPO from 'goatstone/ui/popover.js'
-import renderMessage from 'goatstone/ui/render-message'
+import RenderPO from 'goatstone/ui/popover.js'
 import App from 'goatstone/ui/material-app-demo'
 import Rx from 'rx'
 import events from 'events'
-const eventEmitter = new events.EventEmitter()
-// msg = MessageRender(DOMElement)
-// msg({message: 'hello'})
 const log = require('goatstone/log/log.js')
-const messageStream = Rx.Observable.fromEvent(eventEmitter, 'message')
-messageStream.subscribe(
+import RenderMessage from 'goatstone/ui/render-message'
+
+const eventEmitter = new events.EventEmitter()
+const renderMessage = RenderMessage('#message')
+const renderPO = RenderPO('#d')
+
+// streams
+const streams = {
+    message: Rx.Observable.fromEvent(eventEmitter, 'message'),
+    popover: Rx.Observable.fromEvent(eventEmitter, 'popover')
+}
+streams.log = Rx.Observable.merge(
+  streams.message,
+  streams.popover
+)
+streams.message.subscribe(
   x => {
-      renderMessage('#message', 'Hello Stream!!!')
+      renderMessage(x.message)
   },
   err => log('e', err),
   () => log('c'))
-const popoverStream = Rx.Observable.fromEvent(eventEmitter, 'popover')
-popoverStream.subscribe(
+streams.popover.subscribe(
   x => {
-      if (x.e) x.e.preventDefault() // This prevents ghost click.
       renderPO(x.show)
   },
   err => log('e', err),
   () => log('c'))
-const logStream = Rx.Observable.merge(messageStream, popoverStream)
-logStream.subscribe(
+streams.log.subscribe(
   x => {
       log('logs', x)
   },
   err => log('e', err),
   () => log('c'))
 
+// render that React app
 ReactDOM.render(
   <MuiThemeProvider>
   <App
@@ -44,5 +52,6 @@ ReactDOM.render(
   document.getElementById('app')
 )
 
-eventEmitter.emit('popover', {show: false, target: 'popover'})
+// emit the initial events
+eventEmitter.emit('popover', {show: true, target: 'popover'})
 eventEmitter.emit('message', {action: 'show', target: 'message', message: 'INIT'})

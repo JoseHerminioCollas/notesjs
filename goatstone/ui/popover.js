@@ -27,8 +27,8 @@ const PO = props => (
             </Popover>
         </MuiThemeProvider>
 )
-function renderPO (e, visible) {
-    if (e) e.preventDefault() // This prevents ghost click.
+function renderPO (visible) {
+    // if (e) e.preventDefault() // This prevents ghost click.
     ReactDOM.render(
       <PO
       close={x => {

@@ -11,8 +11,13 @@ var editFiles = [
     'test/*.js',
     'webpack.config.js'
 ]
-gulp.task('default', ['lint', 'wp', 'start-server', 'browser-sync'], function () {
+gulp.task('default', ['lint', 'wp', 'node-serve', 'browser-sync'], function () {
     console.log('default')
+})
+gulp.task('node-serve', function () {
+    var Server = require('goatstone/server/one.js')
+    var s = new Server()
+    s.start()
 })
 gulp.watch(editFiles, ['lint', 'wp'])
 gulp.task('start-server', function () {

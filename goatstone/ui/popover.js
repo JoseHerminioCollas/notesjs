@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import Popover from 'material-ui/Popover/Popover'
 import {Menu, MenuItem} from 'material-ui/Menu'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+const log = require('goatstone/log/log.js')
 
 const PO = props => (
     <MuiThemeProvider>
@@ -27,7 +28,14 @@ const PO = props => (
         </Popover>
     </MuiThemeProvider>
 )
-function renderPO (elementName) {
+function renderPO (elementName, stream) {
+    stream.subscribe(
+        x => {
+            a(x.show)
+        },
+        err => log('e', err),
+        () => log('c'))
+
     const eName = elementName
     function a (isV) {
         ReactDOM.render(
@@ -41,6 +49,5 @@ function renderPO (elementName) {
           document.querySelector(eName)
         )
     }
-    return a
 }
 export default renderPO

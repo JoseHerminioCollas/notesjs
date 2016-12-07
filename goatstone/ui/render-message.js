@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Paper from 'material-ui/Paper'
+const log = require('goatstone/log/log.js')
+
 const pStyle = {
     paper: {
         width: '200px',
@@ -14,9 +16,15 @@ const pStyle = {
         lineHeight: '24px'
     }
 }
-function renderMessage (DOMElement) {
+function renderMessage (DOMElement, stream) {
+    stream.subscribe(
+      x => {
+          r(x.message)
+      },
+      err => log('e', err),
+      () => log('c'))
     var de = DOMElement
-    return function (msg) {
+    function r (msg) {
         ReactDOM.render(
             <MuiThemeProvider>
                 <Paper style={pStyle.paper}

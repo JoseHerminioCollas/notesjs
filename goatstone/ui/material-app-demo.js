@@ -4,10 +4,10 @@ import IconMenu from 'material-ui/IconMenu'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import {MenuItem} from 'material-ui/Menu'
 import RaisedButton from 'material-ui/RaisedButton'
-import Paper from 'material-ui/Paper'
 
 const App = (props) => (
   <div>
+    <h1>Make a List</h1>
     <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -35,9 +35,6 @@ const App = (props) => (
     }
       label="Click me"
     />
-    <Paper style={{background: 'red'}}>
-    paper
-    </Paper>
   </div>
 )
 export default App

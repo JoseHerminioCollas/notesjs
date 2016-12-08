@@ -13,7 +13,7 @@ function Server () {
     app.use('/dist/', express.static(baseName + 'dist'))
 }
 Server.prototype.start = function () {
-    server = app.listen(2000, hostName, function () {
+    server = app.listen(5000, hostName, function () {
         var host = server.address().address
         var port = server.address().port
         console.log('Example app listening at http://%s:%s', host, port)

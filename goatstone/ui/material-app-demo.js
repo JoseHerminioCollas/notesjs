@@ -1,15 +1,15 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
-import ActionHome from 'material-ui/svg-icons/action/home'
+// import ActionHome from 'material-ui/svg-icons/action/home'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import {MenuItem} from 'material-ui/Menu'
-import AppBar from 'material-ui/AppBar'
+// import AppBar from 'material-ui/AppBar'
 import {List, ListItem} from 'material-ui/List'
 import ActionGrade from 'material-ui/svg-icons/action/grade'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
+import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar'
 import Divider from 'material-ui/Divider'
 
 const App = (props) => (

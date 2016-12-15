@@ -2,39 +2,34 @@
  * Slow down the double loop
  * */
 
-function SlowEngine() {
-    this.id = "SlowEngine";
-    this.callBack = null;
-    this.delay = 300;
+function SlowEngine () {
+    this.id = 'SlowEngine'
+    this.callBack = null
+    this.delay = 300
 }
-// start
 SlowEngine.prototype.start = function (arr) {
-    this.mainIterate(arr, 0, 0);
-};
+    this.mainIterate(arr, 0, 0)
+}
 SlowEngine.prototype.setCallback = function (callBack) {
-    this.callBack = callBack;
-};
-// mainIterate : mainIterate outerIterate
+    this.callBack = callBack
+}
 SlowEngine.prototype.mainIterate = function (arr, i, j) {
     if (i < arr.length) {
-        this.innerEngine(arr, i, j);
+        this.innerEngine(arr, i, j)
     }
-};
-// innerEngine    innerIterate
+}
 SlowEngine.prototype.innerEngine = function (arr, i, j) {
-    var $this = this;
+    var $this = this
 
     if (this.callBack) {
-        this.callBack(arr, i, j );
+        this.callBack(arr, i, j)
     }
 
     setTimeout(function () {
         if (j <= arr.length) {
-            $this.innerEngine(arr, i, ++j);
+            $this.innerEngine(arr, i, ++j)
+        } else {
+            $this.mainIterate(arr, ++i, i)
         }
-        else {
-            $this.mainIterate(arr, ++i, i);
-        }
-    }, this.delay);
-
-};
+    }, this.delay)
+}

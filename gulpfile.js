@@ -1,79 +1,77 @@
-/* gulpfile.js */
-var mochaPhantomJS = require('gulp-mocha-phantomjs');
-var react = require('gulp-react');  
-var concat = require('gulp-concat'), 
-  source = require('vinyl-source-stream'),  
-  buffer = require('vinyl-buffer'),
-  sourcemaps = require('gulp-sourcemaps'),
-  babelify = require('babelify'),
-  gulp  = require('gulp'),
-  gutil = require('gulp-util'),
-  jshint = require('gulp-jshint'),
-  concat  = require('gulp-concat'),
-  sourcemaps = require('gulp-sourcemaps'),
-  browserify = require('browserify'),
-  streamify = require('gulp-streamify');
+var gulp = require('gulp')
+var webpack = require('webpack-stream')
+const eslint = require('gulp-eslint')
+var mocha = require('gulp-mocha')
+var exec = require('child_process').exec
 
-var browserSync = require('browser-sync').create();
-
-var input  = {
-  'javascript': 'goatstone/notes/note.js',
-  'html': 'goatstone/notes/index.html',
-  'test': 'test/**/*.{html,js}'
-};
-
-gulp.task('default', ['build', 'watch', 'browser-sync']);
-
-gulp.task('watch', function() {
-  gulp.watch(input.javascript, [ 'jshint', 'build' ] );  
-});
-
-gulp.task('jshint', function() {
-  var aSrc = input.javascript
-  return gulp.src( aSrc )
-   .pipe(react())
-    .pipe(jshint(
-      {
-        esnext:true, 
-        asi:true
-      }))
-    .pipe(jshint.reporter('jshint-stylish'));
-});
-
-gulp.task('build', [ 'browserifyBundle', 'buildHTML' ] );
-
-gulp.task('buildHTML', function(){
-    return gulp.src( input.html )         
-        .pipe(gulp.dest('./dist/'));
-});
-
-gulp.task('browserifyBundle', function(){
-  return browserify( {
-      entries: [input.javascript],
-      debug: true
-    } )
-    .transform( babelify )
-    //.transform(reactify)
-    .bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error') )
-    .pipe( source('js/bundle.js') )
-    .pipe( buffer() )
-    .pipe( sourcemaps.init({loadMaps: true}) )  
-    .pipe( sourcemaps.write('./') )  
-    .pipe( gulp.dest('./dist') );
-});
-
-gulp.task('test', function () {
-    return gulp
-    .src('test/runner.html')
-    .pipe(mochaPhantomJS());
-});
-
-// Static server
-gulp.task('browser-sync', function() {
-    return browserSync.init({
-        server: {
-            baseDir: "./dist/"
+var editFiles = [
+    'goatstone/**/*.js',
+    'goatstone/**/*.jsx',
+    'gulpfile.js',
+    'test/*.js',
+    'webpack.config.js'
+]
+gulp.task('default', ['lint', 'wp', 'node-serve', 'browser-sync'], function () {
+    console.log('default')
+})
+gulp.task('node-serve', function () {
+    var Server = require('goatstone/server/one.js')
+    var s = new Server()
+    s.start()
+})
+gulp.watch(editFiles, ['lint', 'wp'])
+gulp.task('start-server', function () {
+    var cmd = 'node /home/goat/projects/notesjs/goatstone/server/one.js'
+    exec(cmd,
+    (error, stdout, stderr) => {
+        console.log(`stdout: ${stdout}`)
+        console.log(`stderr: ${stderr}`)
+        if (error !== null) {
+            console.log(`exec error: ${error}`)
         }
-    });
-});
+    })
+})
+gulp.task('wp', function () {
+    return gulp.src('dist/note.js')
+        .pipe(webpack(require('./webpack.config.js')))
+        .pipe(gulp.dest('dist/wp/'))
+})
+gulp.task('browser-sync', function () {
+    const cmd = '/home/goat/projects/notesjs/node_modules/browser-sync/bin/browser-sync.js start -f /home/goat/projects/notesjs/dist/'
+    exec(cmd,
+        (error, stdout, stderr) => {
+            console.log(`stdout: ${stdout}`)
+            console.log(`stderr: ${stderr}`)
+            if (error !== null) {
+                console.log(`exec error: ${error}`)
+            }
+        })
+})
+
+gulp.task('lint', function () {
+    return gulp
+    .src(editFiles)
+// eslint() attaches the lint output to the "eslint" property
+        // of the file object so it can be used by other modules.
+        .pipe(eslint())
+        // eslint.format() outputs the lint results to the console.
+        // Alternatively use eslint.formatEach() (see Docs).
+        .pipe(eslint.format())
+        // To have the process exit with an error code (1) on
+        // lint error, return the stream and pipe to failAfterError last.
+        .pipe(eslint.failAfterError())
+    //        .pipe(jshint())
+    // .pipe(jshint.reporter('default'))
+})
+gulp.task('test', function () {
+    const testFiles = [
+        'test/*.js',
+        'test/note.test.js',
+        'test/sort.selection.test.js',
+        'test/react-component.test.js',
+        'test/ui.array-sort.test.js'
+    ]
+    return gulp
+        .src(['test/setup.js', testFiles[4]])
+        .pipe(mocha())
+})

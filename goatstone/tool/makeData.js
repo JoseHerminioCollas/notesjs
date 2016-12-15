@@ -1,17 +1,14 @@
-/* goatstone/tools/data.js */
+function MakeData () {
+}
+MakeData.prototype.getArray = function (length = 20) {
+    const a = Array.from(new Array(length))
+    const range = 1000
+    a.forEach((e, i, arr) => {
+        const rand = Math.floor(Math.random() * range)
+        arr[i] = rand
+    })
 
-function MakeData(){
-	this.randMax = 900 // max random number value
-	this.arrLength = 10 // default array size to return	
-}
-MakeData.prototype.getArray = function(){
-	return [1,2,3]
-}
-MakeData.prototype.getRandArray = function( length ){
-	var l = length || this.arrLength
-	return new Array( l ).join('x').split('x').map( x => {
-		return Math.floor( Math.random() * this.randMax )
-	})
+    return a
 }
 
 module.exports = MakeData

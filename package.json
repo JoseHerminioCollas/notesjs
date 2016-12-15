@@ -1,10 +1,17 @@
 {
-  "name": "notesjs",
+  "name": "jsnote",
   "version": "1.0.0",
-  "description": "A place for JavaScript notes",
+  "description": "There are a lot of great sources of JavaScript and Web Technologies resources available on the web. This one is my own personnel one, perhaps it will be useful to you.",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "jest"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoseHerminioCollas/notesjs.git"
   },
   "author": "Jose Collas",
   "license": "ISC",

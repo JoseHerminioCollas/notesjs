@@ -11,15 +11,28 @@ var editFiles = [
     'test/*.js',
     'webpack.config.js'
 ]
+const noteFiles = ['goatstone/notes/note.js']
 gulp.task('default', ['lint', 'wp', 'node-serve', 'browser-sync'], function () {
     console.log('default')
+})
+// gulp.watch(editFiles, ['lint', 'wp'])
+gulp.watch(noteFiles, ['lint', 'run-notes'])
+gulp.task('run-notes', function () {
+    var cmd = 'node /home/goat/projects/notesjs/goatstone/notes/note.js'
+    exec(cmd,
+    (error, stdout, stderr) => {
+        console.log(`stdout: ${stdout}`)
+        console.log(`stderr: ${stderr}`)
+        if (error !== null) {
+            console.log(`exec error: ${error}`)
+        }
+    })
 })
 gulp.task('node-serve', function () {
     var Server = require('goatstone/server/one.js')
     var s = new Server()
     s.start()
 })
-gulp.watch(editFiles, ['lint', 'wp'])
 gulp.task('start-server', function () {
     var cmd = 'node /home/goat/projects/notesjs/goatstone/server/one.js'
     exec(cmd,

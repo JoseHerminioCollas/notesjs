@@ -22,7 +22,7 @@ function fact (n) {
 }
 // n! / r! (n-r)!
 var rr = fact(4)
-console.log('x', rr)
+console.log('x', rr, r)
 // function bico (n, r) {
 //     return fact(n) / (fact(r) * fact(n-r))
 // }

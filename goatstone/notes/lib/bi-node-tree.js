@@ -1,4 +1,4 @@
-function Node(d) {
+function Node (d) {
     this.l
     this.r
     this.d = d

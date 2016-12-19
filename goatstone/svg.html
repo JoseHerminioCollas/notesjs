@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+var shapes = [
+    { "id": "shape1",
+        "width":  100,
+        "height": 20,
+        "color": "red",
+        "refShape": "shape2",
+        "offsetX": 20,
+        "offsetY": 50
+    },
+    { "id": "shape2",
+        "width":  30,
+        "height": 50,
+        "color": "green",
+        "refShape": "shape3",
+        "offsetX": 110,
+        "offsetY": 10
+    },
+    { "id": "shape3",
+        "width":  30,
+        "height": 50,
+        "color": "blue",
+        "offsetX": 110,
+        "offsetY": 10
+    },
+    { "id": "shape4",
+        "width":  100,
+        "height": 20,
+        "color": "#ccc",
+        "refShape": "shape3",
+        "offsetX": 20,
+        "offsetY": 50
+    },
+    { "id": "shape5",
+        "width":  100,
+        "height": 20,
+        "color": "#999",
+        "refShape": "shape1",
+        "offsetX": 20,
+        "offsetY": 50
+    }]
+function draw_rect(svg, shape) {
+
+    var rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect'); //Create rect in SVG's namespace
+
+    rect.setAttribute("id", shape.id);
+    rect.setAttribute("width", shape.width);
+    rect.setAttribute("height", shape.height);
+    rect.setAttribute("x", shape.offsetX);
+    rect.setAttribute("y", shape.offsetY);
+    rect.style.stroke = shape.color;
+    rect.style.fill = "white";
+    svg.appendChild(rect);
+
+}
+
+function main() {
+    
+    var svg = document.getElementsByTagName('svg')[0]; //Get svg element
+
+    let shapesObj = {}
+    for (let i = shapes.length - 1; i >= 0; i--) {
+        const id = shapes[i].id
+        shapesObj[id] = shapes.splice(i, 1)[0]
+        shapesObj[id].x = shapesObj[id].offsetX
+        shapesObj[id].y = shapesObj[id].offsetY
+    }
+    Object.keys(shapesObj).forEach(key => {
+        let curr = shapesObj[key]
+        let x = curr.offsetX
+        let y = curr.offsetY
+        while (curr) {
+            if (curr.refShape) {
+                x += shapesObj[curr.refShape].x
+                y += shapesObj[curr.refShape].y
+                curr = shapesObj[curr.refShape]
+            } else {
+                curr = null
+            }
+        }
+        shapesObj[key].offsetX = x
+        shapesObj[key].offsetY = y
+
+        draw_rect(svg, shapesObj[key]);
+    })
+}
+
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div id="header">
+
+        <div id="main_div" style="position: absolute;left:10px; margin: 20px;border: solid;border-color: #FB0303;border-width: 1px;">
+            <svg id="main_view" width="2000" height="2000" />
+        </div>
+
+    </div>
+</head>
+<body onload="main()">
+</body>
+</html>

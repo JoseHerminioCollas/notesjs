@@ -16,6 +16,7 @@ gulp.task('default', ['lint', 'wp', 'node-serve', 'browser-sync'], function () {
     console.log('default')
 })
 // gulp.watch(editFiles, ['lint', 'wp'])
+// gulp.watch(editFiles, ['lint', 'wp'])
 gulp.watch(noteFiles, ['lint', 'run-notes'])
 gulp.task('run-notes', function () {
     var cmd = 'node /home/goat/projects/notesjs/goatstone/notes/note.js'

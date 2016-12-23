@@ -45,3 +45,52 @@ function inOrderWalk (root) {
     }
 }
 inOrderWalk(n)
+
+
+/*
+var a = [17, 0, -4, 3, 15]
+
+let treeRoot
+function insert (x) {
+    let currNode = treeRoot
+    let done = false
+    if (typeof currNode === 'undefined') {
+        treeRoot = new TreeNode(x)
+        return
+    }
+    while (!done) {
+        if (x < currNode.value) {
+            if (!currNode.left) {
+                // console.log('------', x,  currNode.left)
+                currNode.left = new TreeNode(x)
+                done = true
+            } else {
+                currNode = currNode.left
+            }
+        } else {
+                // console.log('rrrr', x,  currNode.right)
+            if (!currNode.right) {
+                currNode.right = new TreeNode(x)
+                done = true
+            } else {
+                currNode = currNode.right
+            }
+        }
+    }
+}
+
+function arrayToTree (arr) {
+    arr.forEach(x => {
+        insert(x)
+    })
+    return treeRoot
+}
+var TreeNode = function (value, left, right) {
+    this.value = value
+    this.left = left
+    this.right = right
+}
+
+module.exports = {arrayToTree, TreeNode}
+
+*/

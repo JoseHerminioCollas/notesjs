@@ -11,24 +11,34 @@ var editFiles = [
     'test/*.js',
     'webpack.config.js'
 ]
-const noteFiles = ['goatstone/notes/note.js']
+const noteFiles = ['goatstone/notes/note.js', 'test/note.test.js']
+
 gulp.task('default', ['lint', 'wp', 'node-serve', 'browser-sync'], function () {
     console.log('default')
 })
-// gulp.watch(editFiles, ['lint', 'wp'])
-// gulp.watch(editFiles, ['lint', 'wp'])
-gulp.watch(noteFiles, ['lint', 'run-notes'])
-gulp.task('run-notes', function () {
-    var cmd = 'node /home/goat/projects/notesjs/goatstone/notes/note.js'
-    exec(cmd,
-    (error, stdout, stderr) => {
-        console.log(`stdout: ${stdout}`)
-        console.log(`stderr: ${stderr}`)
-        if (error !== null) {
-            console.log(`exec error: ${error}`)
-        }
-    })
+// gulp.watch(editFiles,  ['lint', 'wp'])
+
+// note files
+gulp.watch(noteFiles, ['lint', 'test-note'])
+gulp.task('test-note', function () {
+    const noteTestFiles = [
+        'test/note.test.js'
+    ]
+    return gulp
+        .src(['test/setup.js', noteTestFiles[0]])
+        .pipe(mocha())
 })
+// gulp.task('run-notes', function () {
+//     var cmd = 'node /home/goat/projects/notesjs/goatstone/notes/note.js'
+//     exec(cmd,
+//     (error, stdout, stderr) => {
+//         console.log(`stdout: ${stdout}`)
+//         console.log(`stderr: ${stderr}`)
+//         if (error !== null) {
+//             console.log(`exec error: ${error}`)
+//         }
+//     })
+// })
 gulp.task('node-serve', function () {
     var Server = require('goatstone/server/one.js')
     var s = new Server()
@@ -65,7 +75,7 @@ gulp.task('browser-sync', function () {
 gulp.task('lint', function () {
     return gulp
     .src(editFiles)
-// eslint() attaches the lint output to the "eslint" property
+        // eslint() attaches the lint output to the "eslint" property
         // of the file object so it can be used by other modules.
         .pipe(eslint())
         // eslint.format() outputs the lint results to the console.

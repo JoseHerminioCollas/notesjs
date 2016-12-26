@@ -7,11 +7,12 @@ var mainFileNames = [
     '/note.js',
     '/react-rx.js',
     '/react-component-creation.js',
-    '/react-style.js'
+    '/react-style.js',
+    '/react-style-rx.js'
 ]
 
 var config = {
-    entry: APP_DIR + mainFileNames[4],
+    entry: APP_DIR + mainFileNames[5],
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js'

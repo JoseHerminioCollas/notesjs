@@ -42,4 +42,4 @@ ReactDOM.render(
 )
 
 // emit the initial events
-eventEmitter.emit('message', {action: 'show', target: 'message', message: 'Welcome to Make A List!'})
+eventEmitter.emit('message', {action: 'show', target: 'message', message: 'Welcome to Make A List'})

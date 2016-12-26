@@ -11,15 +11,15 @@ var editFiles = [
     'test/*.js',
     'webpack.config.js'
 ]
-const noteFiles = ['goatstone/notes/note.js', 'test/note.test.js']
+// const noteFiles = ['goatstone/notes/note.js', 'test/note.test.js']
 
 gulp.task('default', ['lint', 'wp', 'node-serve', 'browser-sync'], function () {
     console.log('default')
 })
-// gulp.watch(editFiles,  ['lint', 'wp'])
+gulp.watch(editFiles, ['lint', 'wp'])
 
 // note files
-gulp.watch(noteFiles, ['lint', 'test-note'])
+// gulp.watch(noteFiles, ['lint', 'test-note'])
 gulp.task('test-note', function () {
     const noteTestFiles = [
         'test/note.test.js'

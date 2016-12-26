@@ -46,7 +46,6 @@ function inOrderWalk (root) {
 }
 inOrderWalk(n)
 
-
 /*
 var a = [17, 0, -4, 3, 15]
 

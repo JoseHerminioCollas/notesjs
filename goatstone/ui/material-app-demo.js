@@ -1,147 +1,92 @@
 import React from 'react'
 import Rx from 'rx'
-// import ReactDOM from 'react-dom'
-const log = require('goatstone/log/log.js')
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 import Popover from 'material-ui/Popover/Popover'
-import ActionHome from 'material-ui/svg-icons/action/home'
-import IconButton from 'material-ui/IconButton'
-import IconMenu from 'material-ui/IconMenu'
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
-import {MenuItem} from 'material-ui/Menu'
-import {List, ListItem} from 'material-ui/List'
-import ActionGrade from 'material-ui/svg-icons/action/grade'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar'
-import Divider from 'material-ui/Divider'
 import Snackbar from 'material-ui/Snackbar'
-
+import ListMake from 'goatstone/ui/list-make'
+import MakeListToolbar from 'goatstone/make-a-list/ui/toolbar'
+// make a list
+import {A, B, MakeListControl} from 'goatstone/make-a-list/ui/popover-content.js'
+const log = require('goatstone/log/log.js')
+// events
 import events from 'events'
 const eventEmitter = new events.EventEmitter()
 const popoverStream = Rx.Observable.fromEvent(eventEmitter, 'popover')
 const messageStream = Rx.Observable.fromEvent(eventEmitter, 'message')
-const logStream = Rx.Observable.merge(
-  messageStream,
-  popoverStream
-)
-logStream.subscribe(
-  x => {
-      log('logs', x)
-  },
-  err => log('e', err),
-  () => log('c'))
-
-const C = props => (
-  <div>
-    <ActionHome />
-    <h3>Make a List.</h3>
-    <p> Create items for a list by select an icon and a note.</p>
-  </div>
-)
+const listStream = Rx.Observable.fromEvent(eventEmitter, 'list')
+const logStream = Rx.Observable.merge(messageStream, popoverStream)
 
 class App extends React.Component {
     constructor (props) {
         super(props)
+        this.arr = []
         this.state = {
-            a: '1111 xx',
             date: new Date(),
             isOpenSnackBar: true,
             isOpenPopover: true,
-            msg: 'abc'
+            msg: 'abc',
+            content: <A />,
+            mainList: []
         }
     }
     componentDidMount () {
+        listStream.subscribe(x => {
+            log('list', x)
+            this.arr.push({a: x.a})
+            this.setState({mainList: this.arr})
+            this.setState({isOpenPopover: false})
+        }, err => log('e', err), () => log('c'))
+        // TODO filter this
         popoverStream.subscribe(x => {
+            if (x.content === 'settings') {
+                this.setState({content: <B />})
+            } else if (x.content === 'list') {
+                console.log('click', new Date())
+                this.setState({content: <MakeListControl
+                  eventEmitter={eventEmitter} />})
+            } else {
+                this.setState({content: <A />})
+            }
             this.setState({
                 isOpenSnackBar: true,
                 msg: 'hello',
                 isOpenPopover: true
             })
         }, err => log('e', err), () => log('c'))
+        logStream.subscribe(x => {
+            log('logs', x)
+        }, err => log('e', err), () => log('c'))
+        // emit initital events
+        eventEmitter.emit('list', {a: 'XXXX'})
+        eventEmitter.emit('list', {a: 'SSSSS'})
     }
     render () {
         return (
           <MuiThemeProvider>
           <div>
-          <Toolbar>
-            <ToolbarGroup firstChild={true}>
-              <ToolbarTitle text="Make A List" style={{marginLeft: '20px'}} />
-            </ToolbarGroup>
-            <ToolbarGroup>
-                <FloatingActionButton style={{marginRight: '20px'}} mini={true}
-                    onTouchTap={
-                        e => {
-                            e.preventDefault() // This prevents ghost click.
-                            console.log('action!!!')
-                            eventEmitter.emit('popover',
-                            {show: true, target: 'popover', content: 'about'})
-                        }
-                    }
-                    >
-                    <ContentAdd />
-                </FloatingActionButton>
-                <Divider />
-                 <IconMenu
-                      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                      anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                      targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-                      <MenuItem primaryText="About"
-                          onTouchTap={
-                              e => {
-                                  e.preventDefault() // This prevents ghost click.
-                                  eventEmitter.emit('popover',
-                                  {show: true, target: 'popover', content: 'about'})
-                              }
-                          }
-                      />
-                      <MenuItem primaryText="Settings"
-                        onTouchTap={
-                            e => {
-                                e.preventDefault() // This prevents ghost click.
-                                eventEmitter.emit('popover',
-                                {show: true, target: 'popover', content: 'settings'})
-                            }
-                        }
-                      />
-                  </IconMenu>
-                </ToolbarGroup>
-            </Toolbar>
-            <List>
-              <ListItem primaryText="a list item" />
-              <ListItem primaryText="abc def" leftIcon={<ActionGrade />} />
-              <ListItem primaryText="123" />
-              <ListItem primaryText="A" />
-              <ListItem primaryText="Starred" leftIcon={<ActionGrade />} />
-              <ListItem primaryText="B" />
-              <ListItem primaryText="C" />
-            </List>
+            <MakeListToolbar
+              eventEmitter={eventEmitter} />
+            <ListMake arr={this.state.mainList} />
             <Popover
-                open={this.state.isOpenPopover}
-                anchorEl={document.querySelector('#d')}
-                anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-                targetOrigin={{horizontal: 'middle', vertical: 'top'}}
-                children={<ActionHome />}
-                content={<C />}
-                onRequestClose={x => {
-                  console.log('close')
-                    this.setState({isOpenPopover: false})
-                }}>
+              open={this.state.isOpenPopover}
+              anchorEl={document.querySelector('#d')}
+              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+              targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+              children={this.state.content}
+              onRequestClose={x => {
+                  this.setState({isOpenPopover: false})
+              }}>
             </Popover>
             <Snackbar
               open={this.state.isOpenSnackBar}
               message={this.state.msg}
               autoHideDuration={3000}
               onRequestClose={x => {
-                  this.setState({
-                      isOpenSnackBar: false
-                  })
+                  this.setState({isOpenSnackBar: false})
               }}
             />
-            <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-            <h2>It is {this.state.a}.</h2>
           </div>
           </MuiThemeProvider>
         )

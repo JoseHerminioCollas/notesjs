@@ -3,6 +3,8 @@ import ActionHome from 'material-ui/svg-icons/action/home'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import TextField from 'material-ui/TextField'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 const A = props => (
     <div>
@@ -18,40 +20,64 @@ const B = props => (
     <p> Create items for a list by select an icon and a note.</p>
   </div>
 )
-let a = 1
-function hc (x) {
-    console.log('x', x)
-    a = 2
+class MakeListControl extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            importance: 2,
+            title: 'xxx',
+            description: ''
+        }
+        this.handleChange = this.handleChange.bind(this)
+    }
+    handleChange (value) {
+        console.log('handleChange: ', value)
+        this.setState(value)
+    }
+    render () {
+        return (
+        <div style={{backgroundColor: '#ccc', padding: '20px'}}>
+        <h3>Make a List.</h3>
+        <p> Create items for a list by select an icon and a note.</p>
+          <SelectField
+            floatingLabelText="Importance"
+            value={this.state.importance}
+            onChange={(e, i, v) => {
+                this.handleChange({importance: v})
+            }}
+          >
+            <MenuItem value={1} primaryText="Never" />
+            <MenuItem value={2} primaryText="Every Night" />
+            <MenuItem value={3} primaryText="Weeknights" />
+            <MenuItem value={4} primaryText="Weekends" />
+            <MenuItem value={5} primaryText="Weekly" />
+          </SelectField>
+          <br />
+          <TextField
+            hintText="Hint Text"
+            floatingLabelText="Floating Label Text"
+            name="title"
+            value={this.state.title}
+            onChange={(e, i, v) => {
+                this.handleChange({title: i})
+            }}
+          /><br />
+          <FloatingActionButton style={{marginRight: '20px'}} mini={true}
+              onTouchTap={
+                  e => {
+                      e.preventDefault() // This prevents ghost click.
+                      this.props.eventEmitter.emit('list',
+                          {
+                              a: this.state.value,
+                              title: this.state.title,
+                              importance: this.state.importance
+                          })
+                  }
+              }>
+              <ContentAdd />
+          </FloatingActionButton>
+        </div>
+        )
+    }
 }
-const MakeListControl = props => (
-  <div style={{backgroundColor: '#ccc'}}>
-    <h3>Make A List Item</h3>
-    <p>Create items for a list.</p>
-    <SelectField
-      floatingLabelText="ImportanceX"
-      value={a}
-      onChange={x=>hc(x)}
-      disabled={false}>
-      <MenuItem value={1} primaryText="Important" />
-      <MenuItem value={2} primaryText="Not So Important" />
-    </SelectField>
-    <TextField
-       hintText="Name"
-       onChange={x => {
-           console.log('change')
-       }}
-     />
-     <TextField
-        hintText="Description"
-        onChange={x => {
-            console.log('change desc')
-        }}
-      /><br />
-    <button onClick={x => {
-        console.log('xxx', this)
-        props.eventEmitter.emit('list', {a: 'yehhhh!'})
-    }}>
-  Make It</button>
-  </div>
-)
 export {A, B, MakeListControl}

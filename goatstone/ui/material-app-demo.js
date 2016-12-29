@@ -33,8 +33,8 @@ class App extends React.Component {
     }
     componentDidMount () {
         listStream.subscribe(x => {
-            log('list', x)
-            this.arr.push({a: x.a})
+            log('list1', x)
+            this.arr.push({a: x.title})
             this.setState({mainList: this.arr})
             this.setState({isOpenPopover: false})
         }, err => log('e', err), () => log('c'))
@@ -59,8 +59,8 @@ class App extends React.Component {
             log('logs', x)
         }, err => log('e', err), () => log('c'))
         // emit initital events
-        eventEmitter.emit('list', {a: 'XXXX'})
-        eventEmitter.emit('list', {a: 'SSSSS'})
+        eventEmitter.emit('list', {title: 'XXXX'})
+        eventEmitter.emit('list', {title: 'SSSSS'})
     }
     render () {
         return (

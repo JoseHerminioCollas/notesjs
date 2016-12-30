@@ -24,14 +24,13 @@ class MakeListControl extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            importance: 2,
-            title: 'xxx',
-            description: ''
+            importance: 1,
+            title: 'title',
+            description: 'description'
         }
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange (value) {
-        console.log('handleChange: ', value)
         this.setState(value)
     }
     render () {
@@ -68,9 +67,12 @@ class MakeListControl extends React.Component {
                       e.preventDefault() // This prevents ghost click.
                       this.props.eventEmitter.emit('list',
                           {
-                              a: this.state.value,
-                              title: this.state.title,
-                              importance: this.state.importance
+                              action: 'add',
+                              item: {
+                                  title: this.state.title,
+                                  description: this.state.description,
+                                  importance: this.state.importance
+                              }
                           })
                   }
               }>

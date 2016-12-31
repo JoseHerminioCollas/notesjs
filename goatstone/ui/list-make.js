@@ -20,8 +20,11 @@ const ListMake = props => {
     })
     return (
         <List>
-          {listItems}
+            {listItems}
         </List>
     )
+}
+ListMake.propTypes = {
+    eventEmitter: React.PropTypes.object.isRequired
 }
 export default ListMake

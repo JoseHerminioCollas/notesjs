@@ -3,20 +3,23 @@ import Rx from 'rx'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
-import Popover from 'material-ui/Popover/Popover'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 import Snackbar from 'material-ui/Snackbar'
+
 import ListMake from 'goatstone/ui/list-make'
 import MakeListToolbar from 'goatstone/make-a-list/ui/toolbar'
 // make a list
-import {A, B, MakeListControl} from 'goatstone/make-a-list/ui/popover-content.js'
+import {About, Settings} from 'goatstone/make-a-list/ui/dialog-content.js'
+import MakeListControl from 'goatstone/make-a-list/ui/make-list-control.js'
 const log = require('goatstone/log/log.js')
 // events
 import events from 'events'
 const eventEmitter = new events.EventEmitter()
-const popoverStream = Rx.Observable.fromEvent(eventEmitter, 'popover')
+const dialogStream = Rx.Observable.fromEvent(eventEmitter, 'dialog')
 const messageStream = Rx.Observable.fromEvent(eventEmitter, 'message')
 const listStream = Rx.Observable.fromEvent(eventEmitter, 'list')
-const logStream = Rx.Observable.merge(messageStream, popoverStream, listStream)
+const logStream = Rx.Observable.merge(messageStream, dialogStream, listStream)
 logStream.subscribe(x => {
     log('logs', x)
 }, err => log('e', err), () => log('c'))
@@ -27,23 +30,27 @@ class App extends React.Component {
         this.arr = []
         this.count = 0
         this.state = {
-            date: new Date(),
+            mainList: [],
             isOpenSnackBar: true,
-            isOpenPopover: true,
-            msg: 'abc',
-            content: <A />,
-            mainList: []
+            isOpenDialog: false,
+            msg: 'Welcome To Make A List!',
+            dialogContent: <About />
         }
     }
     componentDidMount () {
+        // listStream
         listStream
         .filter(x => x.action === 'add')
         .map(x => x.item)
         .subscribe(item => {
             item.id = this.count++
             this.arr.push(item)
-            this.setState({mainList: this.arr})
-            this.setState({isOpenPopover: false})
+            this.setState({
+                mainList: this.arr,
+                isOpenDialog: false,
+                isOpenSnackBar: true,
+                msg: 'Item added'
+            })
         }, err => log('e', err), () => log('c'))
         listStream
         .filter(x => x.action === 'delete')
@@ -51,48 +58,70 @@ class App extends React.Component {
         .subscribe(id => {
             const i = this.arr.findIndex(x => x.id === id)
             this.arr.splice(i, 1)
-            this.setState({mainList: this.arr})
+            this.setState({
+                mainList: this.arr,
+                isOpenSnackBar: true,
+                msg: 'Item removed'
+            })
         }, err => log('e', err), () => log('c'))
+        // generate some list items
         ;[11, 22, 1, 2, 3].forEach(x => {
             eventEmitter.emit('list', {
                 action: 'add',
                 item: {title: x, description: 'd', importance: 0}
             })
         })
-        // TODO filter this
-        popoverStream.subscribe(x => {
-            if (x.content === 'settings') {
-                this.setState({content: <B />})
-            } else if (x.content === 'list') {
-                this.setState({content: <MakeListControl
-                  eventEmitter={eventEmitter} />})
-            } else {
-                this.setState({content: <A />})
-            }
+        // dialogStream
+        dialogStream.filter(x => x.content === 'settings')
+        .subscribe(x => {
             this.setState({
-                isOpenSnackBar: true,
-                msg: 'hello',
-                isOpenPopover: true
+                dialogContent: <Settings />,
+                isOpenDialog: true
+            })
+        }, err => log('e', err), () => log('c'))
+        dialogStream.filter(x => x.content === 'list')
+        .subscribe(x => {
+            this.setState({
+                dialogContent: <MakeListControl eventEmitter={eventEmitter} />,
+                isOpenDialog: true
+            })
+        }, err => log('e', err), () => log('c'))
+        dialogStream.filter(x => x.content === 'about')
+        .subscribe(x => {
+            this.setState({
+                dialogContent: <About />,
+                isOpenDialog: true
             })
         }, err => log('e', err), () => log('c'))
     }
     render () {
+        const actions = [
+            <FlatButton
+             label="Close"
+             primary={true}
+             onTouchTap={x => {
+                 this.setState({isOpenDialog: false})
+             }}
+            />
+        ]
         return (
           <MuiThemeProvider>
           <div>
             <MakeListToolbar
               eventEmitter={eventEmitter} />
-            <ListMake arr={this.state.mainList} eventEmitter={eventEmitter} />
-            <Popover
-              open={this.state.isOpenPopover}
-              anchorEl={document.querySelector('#d')}
-              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-              targetOrigin={{horizontal: 'middle', vertical: 'top'}}
-              children={this.state.content}
+            <ListMake
+              arr={this.state.mainList}
+              eventEmitter={eventEmitter} />
+            <Dialog
+              actions={actions}
+              modal={false}
+              open={this.state.isOpenDialog}
               onRequestClose={x => {
-                  this.setState({isOpenPopover: false})
-              }}>
-            </Popover>
+                  this.setState({isOpenDialog: false})
+              }}
+            >
+              {this.state.dialogContent}
+            </Dialog>
             <Snackbar
               open={this.state.isOpenSnackBar}
               message={this.state.msg}

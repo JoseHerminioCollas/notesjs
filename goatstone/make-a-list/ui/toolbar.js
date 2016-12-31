@@ -19,13 +19,12 @@ const MakeListToolbar = props => {
                 onTouchTap={
                     e => {
                         e.preventDefault() // This prevents ghost click.
-                        // props.eventEmitter.emit('list', {a: 'SSSSS'})
-                        props.eventEmitter.emit('popover',
-                        {show: true, target: 'popover', content: 'list'})
+                        props.eventEmitter.emit('dialog',
+                        {content: 'list'})
                     }
                 }
-                >
-                <ContentAdd />
+            >
+              <ContentAdd />
             </FloatingActionButton>
             <Divider />
              <IconMenu
@@ -36,19 +35,10 @@ const MakeListToolbar = props => {
                       onTouchTap={
                           e => {
                               e.preventDefault() // This prevents ghost click.
-                              props.eventEmitter.emit('popover',
-                              {show: true, target: 'popover', content: 'about'})
+                              props.eventEmitter.emit('dialog',
+                              {content: 'about'})
                           }
                       }
-                  />
-                  <MenuItem primaryText="Settings"
-                    onTouchTap={
-                        e => {
-                            e.preventDefault() // This prevents ghost click.
-                            props.eventEmitter.emit('popover',
-                            {show: true, target: 'popover', content: 'settings'})
-                        }
-                    }
                   />
               </IconMenu>
             </ToolbarGroup>

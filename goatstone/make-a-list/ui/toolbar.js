@@ -12,18 +12,11 @@ const MakeListToolbar = props => {
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
-          <ToolbarTitle text="Make A List" style={{marginLeft: '20px'}} />
+          <ToolbarTitle text={props.title} style={{marginLeft: '20px'}} />
         </ToolbarGroup>
         <ToolbarGroup>
             <FloatingActionButton style={{marginRight: '20px'}} mini={true}
-                onTouchTap={
-                    e => {
-                        e.preventDefault() // This prevents ghost click.
-                        props.eventEmitter.emit('dialog',
-                        {content: 'list'})
-                    }
-                }
-            >
+                onTouchTap={props.actions.dialogList}>
               <ContentAdd />
             </FloatingActionButton>
             <Divider />
@@ -31,18 +24,18 @@ const MakeListToolbar = props => {
                   iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                   anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                   targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-                  <MenuItem primaryText="About"
-                      onTouchTap={
-                          e => {
-                              e.preventDefault() // This prevents ghost click.
-                              props.eventEmitter.emit('dialog',
-                              {content: 'about'})
-                          }
-                      }
+                  <MenuItem primaryText={props.menuItems[0]}
+                      onTouchTap={props.actions.dialogAbout}
                   />
               </IconMenu>
             </ToolbarGroup>
         </Toolbar>
     )
 }
+MakeListToolbar.propTypes = {
+    title: React.PropTypes.string.isRequired,
+    menuItems: React.PropTypes.array.isRequired,
+    actions: React.PropTypes.objectOf(React.PropTypes.func)
+}
+
 export default MakeListToolbar

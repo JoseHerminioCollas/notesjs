@@ -96,7 +96,21 @@ class App extends React.Component {
           <MuiThemeProvider>
           <div>
             <MakeListToolbar
-              eventEmitter={this.props.eventEmitter} />
+            title={'Make A List'}
+            menuItems={['About']}
+            actions={{
+                dialogList: e => {
+                    e.preventDefault() // This prevents ghost click.
+                    this.props.eventEmitter.emit('dialog',
+                    {content: 'list'})
+                },
+                dialogAbout: e => {
+                    e.preventDefault() // This prevents ghost click.
+                    this.props.eventEmitter.emit('dialog',
+                    {content: 'about'})
+                }
+            }}
+            />
             <ListMake
               arr={this.state.mainList}
               eventEmitter={this.props.eventEmitter} />

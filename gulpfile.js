@@ -8,15 +8,15 @@ var editFiles = [
     'goatstone/**/*.js',
     'goatstone/**/*.jsx',
     'gulpfile.js',
-    'test/*.js',
+    'test/**/*.js',
     'webpack.config.js'
 ]
 // const noteFiles = ['goatstone/notes/note.js', 'test/note.test.js']
 
-gulp.task('default', ['lint', 'wp', 'node-serve', 'browser-sync'], function () {
+gulp.task('default', ['lint', 'test', 'wp', 'node-serve', 'browser-sync'], function () {
     console.log('default')
 })
-gulp.watch(editFiles, ['lint', 'wp'])
+gulp.watch(editFiles, ['lint', 'test', 'wp'])
 
 // note files
 // gulp.watch(noteFiles, ['lint', 'test-note'])
@@ -93,9 +93,10 @@ gulp.task('test', function () {
         'test/note.test.js',
         'test/sort.selection.test.js',
         'test/react-component.test.js',
-        'test/ui.array-sort.test.js'
+        'test/ui.array-sort.test.js',
+        'test/make-a-list/ui/toolbar.test.js'
     ]
     return gulp
-        .src(['test/setup.js', testFiles[4]])
+        .src(['test/setup.js', testFiles[5]])
         .pipe(mocha())
 })

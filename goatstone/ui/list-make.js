@@ -12,7 +12,7 @@ const ListMake = props => {
           secondaryText={`${x.description}`}
           key={i}
           rightIcon={<ClearIcon
-            onClick={e => {
+            onTouchTap={e => {
                 props.eventEmitter.emit('list', {
                     action: 'delete',
                     id: x.id })
@@ -25,6 +25,7 @@ const ListMake = props => {
     )
 }
 ListMake.propTypes = {
-    eventEmitter: React.PropTypes.object.isRequired
+    eventEmitter: React.PropTypes.object.isRequired,
+    arr: React.PropTypes.array.isRequired
 }
 export default ListMake

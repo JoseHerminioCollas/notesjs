@@ -10,7 +10,7 @@ let shallowWrapper
 
 describe('MakeListToolbar', function () {
     beforeEach(() => {
-        // sinon.stub(console, 'error', (warning) => { throw new Error(warning) })
+        sinon.stub(console, 'error', (warning) => { throw new Error(warning) })
         spy = sinon.spy()
         shallowWrapper = shallow(<MakeListToolbar
             title={expectedTitle}
@@ -23,6 +23,7 @@ describe('MakeListToolbar', function () {
     })
     afterEach(() => {
         spy.reset()
+        console.error.restore()
     })
     it('should throw an error if the correct props are not supplied', () => {
         function testFunc () {

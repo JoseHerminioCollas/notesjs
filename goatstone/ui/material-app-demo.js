@@ -69,8 +69,32 @@ class App extends React.Component {
         }, err => log('e', err), () => log('c'))
         this.props.dialogStream.filter(x => x.content === 'list')
         .subscribe(x => {
+            const makeListControl = <MakeListControl
+                eventEmitter={this.props.eventEmitter}
+                text={{
+                    title: 'Make A List',
+                    inputs: {
+                        title: {
+                            hintText: 'Add a title',
+                            floatingLabelText: 'Title'
+                        },
+                        description: {
+                            hintText: 'Add a description',
+                            floatingLabelText: 'Description'
+                        },
+                        importance: {
+                            floatingLabelText: 'Importance Level',
+                            levels: ['High', 'Medium', 'Low']
+                        }
+                    },
+                    error: {
+                        tooLong: 'You have reached the maximum number of chararcters!',
+                        required: 'This field is required.'
+                    }
+                }}
+            />
             this.setState({
-                dialogContent: <MakeListControl eventEmitter={this.props.eventEmitter} />,
+                dialogContent: makeListControl,
                 isOpenDialog: true
             })
         }, err => log('e', err), () => log('c'))
@@ -96,20 +120,20 @@ class App extends React.Component {
           <MuiThemeProvider>
           <div>
             <MakeListToolbar
-            title={'Make A List'}
-            menuItems={['About']}
-            actions={{
-                dialogList: e => {
-                    e.preventDefault() // This prevents ghost click.
-                    this.props.eventEmitter.emit('dialog',
-                    {content: 'list'})
-                },
-                dialogAbout: e => {
-                    e.preventDefault() // This prevents ghost click.
-                    this.props.eventEmitter.emit('dialog',
-                    {content: 'about'})
-                }
-            }}
+              title={'Make A List'}
+              menuItems={['About']}
+              actions={{
+                  dialogList: e => {
+                      e.preventDefault() // This prevents ghost click.
+                      this.props.eventEmitter.emit('dialog',
+                      {content: 'list'})
+                  },
+                  dialogAbout: e => {
+                      e.preventDefault() // This prevents ghost click.
+                      this.props.eventEmitter.emit('dialog',
+                      {content: 'about'})
+                  }
+              }}
             />
             <ListMake
               arr={this.state.mainList}

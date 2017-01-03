@@ -96,9 +96,10 @@ gulp.task('test', function () {
         'test/ui.array-sort.test.js',
         'test/make-a-list/ui/toolbar.test.js',
         'test/list-make.test.js',
-        'test/make-a-list/ui/make-list-control.test.js'
+        'test/make-a-list/ui/make-list-control.test.js',
+        'test/make-a-list/ui/material-app-demo.test.js'
     ]
     return gulp
-        .src(['test/setup.js', testFiles[7]])
+        .src(['test/setup.js', testFiles[8]])
         .pipe(mocha())
 })

@@ -11,13 +11,11 @@ var editFiles = [
     'test/**/*.js',
     'webpack.config.js'
 ]
-// const noteFiles = ['goatstone/notes/note.js', 'test/note.test.js']
-
-gulp.task('default', ['lint', 'test', 'wp', 'node-serve', 'browser-sync'], function () {
+//  const noteFiles = ['goatstone/notes/note.js', 'test/note.test.js']
+gulp.task('default', ['lint', 'test', 'webpack', 'appengine', 'browser-sync'], function () {
     console.log('default')
 })
-gulp.watch(editFiles, ['lint', 'test', 'wp'])
-
+gulp.watch(editFiles, ['lint', 'test', 'webpack', 'appengine'])
 // note files
 // gulp.watch(noteFiles, ['lint', 'test-note'])
 gulp.task('test-note', function () {
@@ -28,17 +26,6 @@ gulp.task('test-note', function () {
         .src(['test/setup.js', noteTestFiles[0]])
         .pipe(mocha())
 })
-// gulp.task('run-notes', function () {
-//     var cmd = 'node /home/goat/projects/notesjs/goatstone/notes/note.js'
-//     exec(cmd,
-//     (error, stdout, stderr) => {
-//         console.log(`stdout: ${stdout}`)
-//         console.log(`stderr: ${stderr}`)
-//         if (error !== null) {
-//             console.log(`exec error: ${error}`)
-//         }
-//     })
-// })
 gulp.task('node-serve', function () {
     var Server = require('goatstone/server/one.js')
     var s = new Server()
@@ -55,11 +42,20 @@ gulp.task('start-server', function () {
         }
     })
 })
-gulp.task('wp', function () {
+gulp.task('webpack', function () {
     return gulp.src('dist/note.js')
         .pipe(webpack(require('./webpack.config.js')))
-        .pipe(gulp.dest('dist/wp/'))
+        .pipe(gulp.dest('dist/js'))
 })
+// gulp.task('htmlpack', function () {
+//     return gulp.src('goatstone/server/index.html')
+//         .pipe(gulp.dest('dist/'))
+// })
+gulp.task('appengine', function () {
+    return gulp.src('goatstone/server/appengine/*')
+        .pipe(gulp.dest('dist/'))
+})
+// appengine server files
 gulp.task('browser-sync', function () {
     const cmd = '/home/goat/projects/notesjs/node_modules/browser-sync/bin/browser-sync.js start -f /home/goat/projects/notesjs/dist/'
     exec(cmd,
@@ -103,3 +99,14 @@ gulp.task('test', function () {
         .src(['test/setup.js', testFiles[8]])
         .pipe(mocha())
 })
+// gulp.task('run-notes', function () {
+//     var cmd = 'node /home/goat/projects/notesjs/goatstone/notes/note.js'
+//     exec(cmd,
+//     (error, stdout, stderr) => {
+//         console.log(`stdout: ${stdout}`)
+//         console.log(`stderr: ${stderr}`)
+//         if (error !== null) {
+//             console.log(`exec error: ${error}`)
+//         }
+//     })
+// })

@@ -9,4 +9,4 @@ install:
   - npm install
   # > sqlite3@3.1.8 install /home/travis/build/JoseHerminioCollas/notesjs/node_modules/sqlite3
   - ln -s /home/travis/build/JoseHerminioCollas/notesjs/goatstone /home/travis/build/JoseHerminioCollas/notesjs/node_modules/goatstone
-script: gulp wp
+script: gulp travis

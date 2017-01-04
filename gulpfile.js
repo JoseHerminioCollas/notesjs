@@ -15,6 +15,9 @@ var editFiles = [
 gulp.task('default', ['lint', 'test', 'webpack', 'appengine', 'browser-sync'], function () {
     console.log('default')
 })
+gulp.task('travis', ['lint', 'test', 'webpack', 'appengine'], function () {
+    console.log('default')
+})
 gulp.watch(editFiles, ['lint', 'test', 'webpack', 'appengine'])
 // note files
 // gulp.watch(noteFiles, ['lint', 'test-note'])
@@ -84,19 +87,24 @@ gulp.task('lint', function () {
     // .pipe(jshint.reporter('default'))
 })
 gulp.task('test', function () {
-    const testFiles = [
-        'test/*.js',
-        'test/note.test.js',
-        'test/sort.selection.test.js',
-        'test/react-component.test.js',
-        'test/ui.array-sort.test.js',
-        'test/make-a-list/ui/toolbar.test.js',
-        'test/list-make.test.js',
+    // const testFiles = [
+    //     'test/*.js',
+    //     'test/note.test.js',
+    //     'test/sort.selection.test.js',
+    //     'test/react-component.test.js',
+    //     'test/ui.array-sort.test.js',
+    //     'test/make-a-list/ui/toolbar.test.js',
+    //     'test/list-make.test.js',
+    //     'test/make-a-list/ui/make-list-control.test.js',
+    //     'test/make-a-list/ui/material-app-demo.test.js'
+    // ]
+    const testFiles2 = [
+        'test/setup.js',
         'test/make-a-list/ui/make-list-control.test.js',
         'test/make-a-list/ui/material-app-demo.test.js'
     ]
     return gulp
-        .src(['test/setup.js', testFiles[8]])
+        .src(testFiles2)
         .pipe(mocha())
 })
 // gulp.task('run-notes', function () {

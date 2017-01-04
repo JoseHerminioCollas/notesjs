@@ -1,4 +1,11 @@
-/*
+console.log('note')
+
+function Note () {
+    return 1
+}
+
+module.exports = Note
+/* xxxccc
 int rotated_binary_search(int A[], int N, int key) {
   int L = 0;
   int R = N - 1;

@@ -1,7 +1,7 @@
 import React from 'react'
 import events from 'events'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-injectTapEventPlugin()
+// import injectTapEventPlugin from 'react-tap-event-plugin'
+// injectTapEventPlugin()
 const eventEmitter = new events.EventEmitter()
 import { expect } from 'chai'
 import { shallow } from 'enzyme'

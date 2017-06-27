@@ -11,6 +11,11 @@ var editFiles = [
     'test/**/*.js',
     'webpack.config.js'
 ]
+
+gulp.task('watchnotes', function () {
+    gulp.watch(editFiles, ['lint', 'test'])
+})
+
 gulp.task('notes', ['lint', 'watchfiles', 'webpack', 'appengine', 'browser-sync'], function () {
     // const noteFiles = ['goatstone/notes/note.js', 'test/note.test.js']
     // gulp.watch(editFiles, ['lint', 'test', 'webpack'])

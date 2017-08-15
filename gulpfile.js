@@ -13,7 +13,14 @@ var editFiles = [
 ]
 
 gulp.task('watchnotes', function () {
-    gulp.watch(editFiles, ['lint', 'test'])
+    gulp.watch(editFiles, ['lint-note', 'test'])
+})
+gulp.task('lint-note', function () {
+    return gulp
+    .src(['goatstone/notes/note.js'])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError())
 })
 
 gulp.task('notes', ['lint', 'watchfiles', 'webpack', 'appengine', 'browser-sync'], function () {

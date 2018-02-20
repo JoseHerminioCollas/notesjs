@@ -22,6 +22,15 @@ gulp.task('lint-note', function () {
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())
 })
+gulp.task('test', function () {
+    const testFiles2 = [
+        'test/setup.js',
+        'test/note.test.js'
+    ]
+    return gulp
+        .src(testFiles2)
+        .pipe(mocha())
+})
 
 gulp.task('notes', ['lint', 'watchfiles', 'webpack', 'appengine', 'browser-sync'], function () {
     // const noteFiles = ['goatstone/notes/note.js', 'test/note.test.js']
@@ -101,26 +110,6 @@ gulp.task('lint', function () {
         .pipe(eslint.failAfterError())
     //        .pipe(jshint())
     // .pipe(jshint.reporter('default'))
-})
-gulp.task('test', function () {
-    // const testFiles = [
-    //     'test/*.js',
-    //     'test/note.test.js',
-    //     'test/sort.selection.test.js',
-    //     'test/react-component.test.js',
-    //     'test/ui.array-sort.test.js',
-    //     'test/make-a-list/ui/toolbar.test.js',
-    //     'test/list-make.test.js',
-    //     'test/make-a-list/ui/make-list-control.test.js',
-    //     'test/make-a-list/ui/material-app-demo.test.js'
-    // ]
-    const testFiles2 = [
-        'test/setup.js',
-        'test/note.test.js'
-    ]
-    return gulp
-        .src(testFiles2)
-        .pipe(mocha())
 })
 gulp.task('run-notes', function () {
     var cmd = 'node /home/goat/projects/notesjs/goatstone/notes/note.js'

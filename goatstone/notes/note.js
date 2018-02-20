@@ -1,20 +1,26 @@
 // store as x y combination
 // use as canvas[y][x]
 // draw lines from 2 point, box from 2 points, fill flood
-function Draw (w, h) {
+function Canvas (w, h) {
     this.canvas = Array.from(new Array(w))
-        .map(x => new Array(h).fill(''))
+        .map(x => new Array(h).fill(' '))
 }
-Draw.prototype.drawCanvas = function () {
-    // let str = ''
-    for (let i = 0; i < this.canvas.length; i++) {
-  //      str += this.canvas[i].join(' ') + i + '\n'
-        for (let j = 0; j < this.canvas.length; j++) {
-        }
-    }
-    return this.canvas
+Canvas.prototype.drawCanvas = function () {
+    let framed = this.canvas.map( x => {
+        return ['|', ...x, '|']
+    })
+    framed.unshift(new Array(framed[0].length).fill('-'))
+    framed.push(new Array(framed[0].length).fill('-'))
+    let str = framed.reduce((acc, v, i, arr) => {
+        const lineEnd = (i === arr.length - 1)? '' : '\n' 
+        let returnVal = acc + v.join('') + lineEnd
+        return returnVal
+    }, '')
+    return str
 }
-Draw.prototype.draw = function (p1, p2) {
+Canvas.prototype.draw = function (p1x, p1y, p2x, p2y) {
+    const p1 = [p1x, p1y]
+    const p2 = [p2x, p2y]
     let c = p1 // c x y
     let isDone = false
     while (!isDone) {
@@ -36,14 +42,16 @@ Draw.prototype.draw = function (p1, p2) {
                 isDone = true
             }
         } else { // is Diagona, draw a box
-            this.draw([p1[0], p1[1]], [p2[0], p1[1]])
-            this.draw([p2[0], p1[1]], [p2[0], p2[1]])
-            this.draw([p2[0], p2[1]], [p1[0], p2[1]])
-            this.draw([p1[0], p2[1]], [p1[0], p1[1]])
+            this.draw(p1[0], p1[1], p2[0], p1[1])
+            this.draw(p2[0], p1[1], p2[0], p2[1])
+            this.draw(p2[0], p2[1], p1[0], p2[1])
+            this.draw(p1[0], p2[1], p1[0], p1[1])
             isDone = true
         }
     }
     return this
 }
-
-module.exports = Draw
+Canvas.prototype.fill = function (p1, p2, symbol) {
+    // this.canvas[0][0] = 'f'
+} //
+module.exports = Canvas

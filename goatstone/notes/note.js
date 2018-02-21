@@ -6,13 +6,13 @@ function Canvas (w, h) {
         .map(x => new Array(h).fill(' '))
 }
 Canvas.prototype.drawCanvas = function () {
-    let framed = this.canvas.map( x => {
+    let framed = this.canvas.map(x => {
         return ['|', ...x, '|']
     })
     framed.unshift(new Array(framed[0].length).fill('-'))
     framed.push(new Array(framed[0].length).fill('-'))
     let str = framed.reduce((acc, v, i, arr) => {
-        const lineEnd = (i === arr.length - 1)? '' : '\n' 
+        const lineEnd = (i === arr.length - 1) ? '' : '\n'
         let returnVal = acc + v.join('') + lineEnd
         return returnVal
     }, '')
@@ -52,6 +52,25 @@ Canvas.prototype.draw = function (p1x, p1y, p2x, p2y) {
     return this
 }
 Canvas.prototype.fill = function (p1, p2, symbol) {
-    // this.canvas[0][0] = 'f'
-} //
+    let curr = [p1, p2]
+    let stack = []
+    stack.push(curr)
+    while (stack.length > 0) {
+        let curr = stack.pop()
+        this.canvas[ curr[1] ][ curr[0] ] = symbol
+        // keep walking check neighbor pixels, set new curr accordingly
+        // scan the whole square around [1, -1], [1 1], [-1, 1], [-1, -1]
+        const walk = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, -1], [1, 1], [-1, 1], [-1, -1]]
+        for (let i = 0; i < walk.length; i++) {
+            const newV = [curr[0] + walk[i][0], curr[1] + walk[i][1]]
+            if (typeof this.canvas[newV[1]] !== 'undefined' &&
+                typeof this.canvas[newV[1]][newV[0]] !== 'undefined' &&
+                this.canvas[newV[1]][newV[0]] !== symbol &&
+                this.canvas[newV[1]][newV[0]] !== 'x'
+              ) {
+                stack.push(newV)
+            }
+        }
+    }
+}
 module.exports = Canvas

@@ -31,11 +31,12 @@ describe('Simple Draw', function () {
     describe('flood fill', () => {
         it('should fill rectangle', function() {
             let c = new Canvas(7, 7)
-            let actual = c.draw(1, 1, 5, 4).fill(3, 3, 'o')
+            let actual = c
+                .draw(1, 1, 5, 4)
+                .fill(3, 3, 'o')
+//                .fill(0, 0, 'o')
             const expectedResult = '---------\n|       |\n| xxxxx |\n| xooox |\n| xooox |\n| xxxxx |\n|       |\n|       |\n---------'
             const result = c.drawCanvas()
-            console.log(result)
-            console.log(c.canvas)
             expect(result).to.equal(expectedResult)
         })
     })

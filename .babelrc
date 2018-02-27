@@ -4,6 +4,6 @@
     'foo.js',
     'bar/**/*.js'
   ],
-      'presets' : ['es2015', 'react', 'airbnb']
+      'presets' : ['es2015', 'stage-0',  'react', 'airbnb']
   }
   

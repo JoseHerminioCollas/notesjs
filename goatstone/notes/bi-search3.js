@@ -43,7 +43,7 @@ function bs (a, n) {
     return -1
 }
 
-//console.log('xx', bso( 188))
+////console.log('xx', bso( 188))
 console.log('xxxx', bs(arr, 7))
 
 function Note () { return 1 }

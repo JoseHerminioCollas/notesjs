@@ -30,21 +30,26 @@ t.insert(new Node(5))
 t.insert(new Node(2))
 t.insert(new Node(12))
 t.insert(new Node(22))
+let arrayA = [1, 2, 4, 7, 55, 77, 88, 444, 555, 777]
 
-console.log('aaa', n)
-function inOrderWalk (root) {
-    const s = []
-    let curr = root
-    let isDone = false
-    while (!isDone) {
-        console.log('x', curr)
-        if (curr) {
-            s.push(curr)
+function bs (arr, searchE) {
+    let lI = 0
+    let rI = arr.length - 1
+    let cI
+    while (lI <= rI) {
+        cI = parseInt((rI + lI) / 2)        
+        if (arr[cI] < searchE) {
+            lI = cI + 1
+        } else if (arr[cI] > searchE) {
+            rI = cI - 1
+        } else {
+            return cI
         }
-        isDone = true
     }
+    return -1
 }
-inOrderWalk(n)
+
+console.log('xxxx', arrayA[bs(arrayA, 7)])
 
 /*
 var a = [17, 0, -4, 3, 15]

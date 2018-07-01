@@ -1,4 +1,5 @@
 var path = require('path')
+var exec = require('child_process').exec;
 
 var BUILD_DIR = path.resolve(__dirname, 'dist/')
 var APP_DIR = path.resolve(__dirname, 'goatstone')
@@ -18,7 +19,7 @@ var config = {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -34,6 +35,19 @@ var config = {
 
         ]
     }
+    ,
+    plugins: [
+        {
+            apply: (compiler) => {
+                compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
+                    exec('node_modules/.bin/mocha test/note.test', (err, stdout, stderr) => {
+                        if (stdout) process.stdout.write(stdout);
+                        if (stderr) process.stderr.write(stderr);
+                    });
+                });
+            }
+        }
+    ]
 }
 
 module.exports = config

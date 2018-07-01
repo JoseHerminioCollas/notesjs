@@ -6,24 +6,5 @@
         "node": "6.9"
       }
     }]
-  ],
-  "env": {
-    "test": {
-      "plugins": ["istanbul"]
-    }
-  }
+  ]
 }
-
-// {
-//     "plugins": [
-//     ],
-//     "ignore": [
-//         "node_modules"
-//     ],
-//     "presets": [
-//         "es2015",
-//         "stage-0",
-//         "react",
-//         "airbnb"
-//     ]
-// }

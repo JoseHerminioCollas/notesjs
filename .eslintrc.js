@@ -1,5 +1,5 @@
 module.exports = {
-    "extends": "standard",
+    "extends": "airbnb",
     "globals": {
         "it": false,
         "describe": false,

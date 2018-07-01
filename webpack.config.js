@@ -13,16 +13,26 @@ var config = {
         path: BUILD_DIR,
         filename: 'bundle.js'
     },
+    mode: 'development',
     module: {
-        loaders: [{
-            test: /\.js?/,
-            include: APP_DIR,
-            loader: 'babel-loader',
-            exclude: /node_modules/,
-            query: {
-                presets: ['es2015', 'react']
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['eslint-loader']
             }
-        }]
+
+        ]
     }
 }
 

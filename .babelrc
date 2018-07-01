@@ -1,8 +1,29 @@
 {
-    'plugins': ['transform-react-jsx'],
-    'ignore': [
-        'foo.js',
-        'bar/**/*.js'
-    ],
-    'presets': ['es2015', 'stage-0', 'react', 'airbnb']
+  "presets": [
+    ["@babel/preset-env", {
+      "loose": true,
+      "targets": {
+        "node": "6.9"
+      }
+    }]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["istanbul"]
+    }
+  }
 }
+
+// {
+//     "plugins": [
+//     ],
+//     "ignore": [
+//         "node_modules"
+//     ],
+//     "presets": [
+//         "es2015",
+//         "stage-0",
+//         "react",
+//         "airbnb"
+//     ]
+// }

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack",
+    "start": "webpack --watch",
     "start:dev": "webpack-dev-server"
   },
   "repository": {

@@ -1,0 +1,12 @@
+﻿version: '2'
+services:
+  webpack:
+    build:
+      context: .
+    image: goatstone/notes-js
+    container_name: my-webpack-container
+    volumes:
+      - /home/goat/app:/app
+volumes:
+  wwwroot:
+    driver: local

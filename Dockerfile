@@ -1,5 +1,8 @@
 FROM node:8
 
+RUN ["apt-get", "update"]
+RUN ["apt-get", "install", "-y", "emacs", "git"]
+
 RUN npm install webpack webpack-cli -g
 
 WORKDIR /app

@@ -17,8 +17,8 @@ module.exports = {
         "capIsNew": false
     },
     "rules": {
- 		"indent": ["error", 4],
-        "semi": 2,
+ 	"indent": ["error", 4],
+        "semi": ["error", "never"],
         "new-cap": 0
     }
 };

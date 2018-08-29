@@ -1,15 +1,19 @@
-var path = require('path')
-var exec = require('child_process').exec;
+const path = require('path')
+const exec = require('child_process').exec;
 
-var BUILD_DIR = path.resolve(__dirname, 'dist/')
-var APP_DIR = path.resolve(__dirname, 'goatstone')
-var mainFileNames = [
-    '/array-sort.js',
+const BUILD_DIR = path.resolve(__dirname, 'dist/')
+const DIR_NAME = __dirname
+const APP_DIR = path.resolve(DIR_NAME, 'goatstone')
+const TEST_DIR = path.resolve(DIR_NAME, 'test')
+const testFiles = ['quick-sort.js']
+const mainFileNames = [
+    '/notes/quick-sort.js',
     '/notes/note.js'
 ]
+const testFile = path.resolve(TEST_DIR, testFiles[0])
 
-var config = {
-    entry: APP_DIR + mainFileNames[1],
+const config = {
+    entry: testFile,
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js'
@@ -40,7 +44,7 @@ var config = {
         {
             apply: (compiler) => {
                 compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
-                    exec('node_modules/.bin/mocha test/note.test', (err, stdout, stderr) => {
+                    exec('node_modules/.bin/mocha test/' + testFiles[0], (err, stdout, stderr) => {
                         if (stdout) process.stdout.write(stdout);
                         if (stderr) process.stderr.write(stderr);
                     });

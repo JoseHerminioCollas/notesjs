@@ -1,7 +1,7 @@
 FROM node:8
 
 RUN ["apt-get", "update"]
-RUN ["apt-get", "install", "-y", "emacs", "git"]
+RUN ["apt-get", "install", "-y", "emacs", "git", "screen"]
 
 RUN npm install webpack webpack-cli -g
 
@@ -15,6 +15,9 @@ RUN npm install
 
 ENV NODE_ENV=development
 ENV PORT=4000
+
+# CMD webpack
+# CMD emacs
 CMD webpack --watch --watch-polling
 
 # CMD [ “npm”, “start” ]

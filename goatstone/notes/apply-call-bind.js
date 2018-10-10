@@ -2,7 +2,7 @@
 // console.log('a', a)
 // selection closer obj creation
 var a = function () {
-    return this
+    return this;
 }.bind(1)
 // var b = new A()
 // console.log('aaa',  b.call({a: 5}) )

@@ -5,7 +5,7 @@ const BUILD_DIR = path.resolve(__dirname, 'dist/')
 const DIR_NAME = __dirname
 const APP_DIR = path.resolve(DIR_NAME, 'goatstone')
 const TEST_DIR = path.resolve(DIR_NAME, 'test')
-const testFiles = ['quick-sort.js']
+const testFiles = ['note.test.js']
 const mainFileNames = [
     '/notes/quick-sort.js',
     '/notes/note.js'

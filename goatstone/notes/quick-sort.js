@@ -1,36 +1,36 @@
 /* eslint no-param-reassign: "off" */
 /* eslint no-console: ["error", { allow: ["log", "error"] }] */
-function swap(swapArr, i, j) {
-    const temp = swapArr[i]
-    swapArr[i] = swapArr[j]
-    swapArr[j] = temp
+function swap(arr, i, j) {
+    const temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
 }
-function partition(pArr, pivotIndex, left, right) {
-    console.log('partition: ', left, right)
-    const pivotValue = pArr[pivotIndex]
-    let partitionIndex = left
-    for (let i = left; i < right; i += 1) {
-        if (pArr[i] < pivotValue) {
-            swap(pArr, i, partitionIndex)
-            partitionIndex += 1
+function partition(arr, pivotI, leftI, rightI) {
+    let partitionI = leftI
+    for (let i = leftI; i < rightI; i += 1) {
+        if (arr[i] < arr[pivotI]) {
+            swap(arr, i, partitionI)
+            partitionI += 1
         }
+        console.log(i)
     }
-    swap(pArr, right, partitionIndex)
-    return partitionIndex
+    console.log('x', arr[rightI], partitionI)
+    swap(arr, rightI, partitionI) // rightI is set in quickSort
+    return partitionI
 }
-function quickSort(qSArr, left, right) {
-    console.log('quick sort', left, right)
-    if (left < right) {
-        const pivot = right
-        const partitionIndex = partition(qSArr, pivot, left, right)
-        console.log('a', left, right, partitionIndex, qSArr)
+function quickSort(arr, leftI, rightI) {
+    // console.log('quick sort', leftI, rightI)
+    if (leftI < rightI) {
+        const pivotI = rightI
+        const partitionIndex = partition(arr, pivotI, leftI, rightI)
+        // console.log('a', leftI, rightI, partitionIndex, qSArr)
         // sort left and right
-        quickSort(qSArr, left, partitionIndex - 1)
+        quickSort(arr, leftI, partitionIndex - 1)
         // console.log('b: ', left, right, partitionIndex)
-        quickSort(qSArr, partitionIndex + 1, right)
+        quickSort(arr, partitionIndex + 1, rightI)
         // console.log('c', left, right, partitionIndex)
     }
-    return qSArr
+    return arr
 }
 
 module.exports = [quickSort]

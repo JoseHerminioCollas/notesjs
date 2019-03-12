@@ -17,7 +17,7 @@ function rec(str) {
 }
 const r = rec('abc')
 console.log('rr', r)
-
+;
 function f() {
     return 1
 }

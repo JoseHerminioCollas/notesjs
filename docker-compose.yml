@@ -3,7 +3,7 @@ services:
   webpack:
     build:
       context: .
-    image: goatstone/notes-js
+    image: goatstone/notesjs
     container_name: my-webpack-container
     volumes:
       - /home/goat/app:/app

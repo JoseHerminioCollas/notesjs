@@ -8,8 +8,8 @@ function perms(str) {
         const first = str[i]
         const rest = str.slice(0, i) + str.slice(i + 1)
         const innerPerms = perms(rest)
-        for (let j = 0; j < innerPerms.length; j += 1) {
-            results.push(first + innerPerms[j])
+        for (let ip of innerPerms) {
+            results.push(first + ip)
         }
     }
     return results

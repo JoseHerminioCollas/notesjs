@@ -12,7 +12,7 @@ const x = (ints, s) => {
       }
       j += 1
     }
-    if (ints[i] > s - max || ints[s] < s - min) {
+    if (s - max <= ints[i] || s - min > ints[s]) {
       nFS.push(ints[i])
     }
     i += 1

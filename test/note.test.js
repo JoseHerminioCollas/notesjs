@@ -1,10 +1,10 @@
-var expect = require('chai').expect
-const [n, m] = require('../goatstone/notes/note')
+const expect = require('chai').expect
+const [func, arg] = require('../goatstone/notes/note')
 
-describe('Notes Test', function () {
-
-    it('should...', () => {
-        console.log(n(1), m)
+describe('Test', () => {
+    it('should', () => {
+        // const eR = func()
+        // console.log(eR)
         expect(1).to.equal(1)
     })
 })

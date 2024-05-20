@@ -1,3 +1,5 @@
+
+
 // quick                                                                            
 const swap = (arr, a, b) => {
     const t = arr[a]
@@ -35,7 +37,7 @@ const x = () => 1
 module.exports = [() => x(), partition, qs, swap, arr2]
 
 ///
-File Edit Options Buffers Tools Javascript Help                                     
+
 const { expect } = require('chai')
 const [func, partition, qs, swap, arr] = require('../goatstone/notes/note')
 
@@ -62,3 +64,4 @@ describe('Notes Test', () => {
             expect(arr).to.deep.equal([3, 1])
         })
     })
+>>>>>>> 564806922abb0e4f23310a0e17c9234fd3e69d13

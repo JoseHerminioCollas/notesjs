@@ -18,8 +18,8 @@
   "author": "Jose Collas",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/core": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
     "babel-loader": "^8.0.0-beta.4",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
